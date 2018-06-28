@@ -1,0 +1,81 @@
+*Heading
+** Job name: beamueltest Model name: Model-1
+*Preprint, echo=NO, model=NO, history=NO, contact=NO
+**
+** PARTS
+**
+*Part, name=Part-1
+*Node
+      1,         -30.,           0.
+      2,         -20.,           0.
+      3,         -10.,           0.
+      4,           0.,           0.
+      5,          10.,           0.
+      6,          20.,           0.
+      7,          30.,           0.
+      8,         -25.,           0.
+      9,         -15.,           0.
+     10,          -5.,           0.
+     11,           5.,           0.
+     12,          15.,           0.
+     13,          25.,           0.
+*user element,type=u1,nodes=3,coordinates=2,properties=3,variables=8
+1,2,6
+3,1
+*Element, type=u1,elset=one
+1,  1,  2,  8
+2,  2,  3,  9
+3,  3,  4,  10
+4,  4,  5,  11
+5,  5,  6,  12
+6,  6,  7,  13
+*uel property, elset=one
+2.0,1.0,1000.
+*End Part
+**  
+**
+** ASSEMBLY
+**
+*Assembly, name=Assembly
+**  
+*Instance, name=Part-1-1, part=Part-1
+*End Instance
+**  
+*Nset, nset=_PickedSet4, internal, instance=Part-1-1
+ 1,
+*Nset, nset=_PickedSet5, internal, instance=Part-1-1
+ 7,
+*Nset, nset=_PickedSet6, internal, instance=Part-1-1
+ 7,
+*Nset,nset=_PickedSet7,internal,instance=Part-1-1
+ 6,
+*End Assembly
+** 
+** BOUNDARY CONDITIONS
+** 
+** ----------------------------------------------------------------
+** 
+** STEP: Step-1
+** 
+*Step, name=Step-1,nlgeom=Yes
+*Static
+1., 1., 1e-05, 1.
+** 
+** Name: BC-1 Type: Displacement/Rotation
+Boundary
+_PickedSet4,ENCASTRE
+*Boundary
+_PickedSet6,2,2,1
+** 
+** OUTPUT REQUESTS
+** 
+*Restart, write, frequency=0
+** 
+** FIELD OUTPUT: F-Output-1
+** 
+*Output, field, variable=PRESELECT
+** 
+** HISTORY OUTPUT: H-Output-1
+** 
+*Output, history, variable=PRESELECT
+*End Step
